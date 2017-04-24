@@ -1,10 +1,10 @@
 {
-  "name": "electron-common-ipc",
+  "name": "tr-electron-ipc-bus",
   "version": "1.1.4",
   "description": "A safe IPC bus for applications built on Electron.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emmkimme/electron-common-ipc.git"
+    "url": "git+https://github.com/thomsonreuters/electron-ipc-bus.git"
   },
   "keywords": [
     "electron",
@@ -16,16 +16,16 @@
     "process",
     "rpc"
   ],
-  "author": "Emmanuel Kimmerlin, Michael Vasseur",
+  "author": "Eikon Desktop Browser Integration",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/emmkimme/electron-common-ipc/issues"
+    "url": "https://github.com/thomsonreuters/electron-ipc-bus/issues"
   },
-  "homepage": "https://github.com/emmkimme/electron-common-ipc#readme",
+  "homepage": "https://github.com/thomsonreuters/electron-ipc-bus#readme",
   "maintainers": [
     {
-      "name": "Emmanuel Kimmerlin",
-      "email": "emmanuel.kimmerlin@thomsonreuters.com"
+      "name": "Eikon Desktop Browser Integration",
+      "email": "Thomson-EikonDesktopBrowserIntegration@Thomsonreuters.com"
     }
   ],
   "main": "./lib/electron-common-ipc.js",
