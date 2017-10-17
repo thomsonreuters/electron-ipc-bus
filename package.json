@@ -36,7 +36,8 @@
   "types": "./lib/electron-ipc-bus.d.ts",
   "browser": "./lib/electron-ipc-bus-browser.js",
   "dependencies": {
-    "uuid": "3.0.1"
+    "uuid": "3.0.1",
+    "socket-serializer": "^0.8.0"
   },
   "devDependencies": {
     "@types/node": "^0.0.3",

@@ -1,6 +1,6 @@
 //import { Buffer } from 'buffer';
 
-import { IpcPacketNet as BaseIpc } from './Net/ipcPacketNet';
+import { IpcPacketNet as BaseIpc } from 'socket-serializer';
 import * as IpcBusInterfaces from './IpcBusInterfaces';
 import * as IpcBusUtils from './IpcBusUtils';
 // import * as util from 'util';
@@ -8,7 +8,7 @@ import * as IpcBusUtils from './IpcBusUtils';
 import { IpcBusCommonClient } from './IpcBusClient';
 import { IpcBusTransport, IpcBusCommand } from './IpcBusTransport';
 import { IpcBusTransportNode } from './IpcBusTransportNode';
-import { IpcPacketBuffer } from './Net/ipcPacketBuffer';
+import { IpcPacketBuffer } from 'socket-serializer';
 
 /** @internal */
 export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
@@ -165,7 +165,7 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
     }
 
     private _onData(packet: IpcPacketBuffer, socket: any, server: any): void {
-        let ipcBusCommand: IpcBusCommand = packet.toArrayAt(0);
+        let ipcBusCommand: IpcBusCommand = packet.parseArrayAt(0);
         if (ipcBusCommand && ipcBusCommand.name) {
             switch (ipcBusCommand.name) {
                 case IpcBusUtils.IPC_BUS_COMMAND_CONNECT: {
