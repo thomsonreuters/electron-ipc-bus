@@ -37,7 +37,7 @@
   "browser": "./lib/electron-ipc-bus-browser.js",
   "dependencies": {
     "uuid": "3.0.1",
-    "socket-serializer": "^0.8.0"
+    "socket-serializer": "^0.9.0"
   },
   "devDependencies": {
     "@types/node": "^0.0.3",
@@ -60,6 +60,7 @@
     "build-declaration-dts-bundle-browser": "dts-bundle --outputAsModuleFolder --name electron-ipc-bus-browser --main ./lib/electron-ipc-bus-browser.d.ts",
     "clean-declaration-dts": "del-cli ./lib/IpcBus/*.d.ts",
     "tsc": "tsc",
-    "tslint": "tslint"
+    "tslint": "tslint",
+    "publication": "npm publish ./ --registry https://registry.npmjs.org/"
   }
 }
