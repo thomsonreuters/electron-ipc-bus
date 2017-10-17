@@ -1,6 +1,6 @@
 {
   "name": "electron-ipc-bus",
-  "version": "0.31.0",
+  "version": "0.32.0",
   "description": "A safe IPC bus for applications built on Electron.",
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
   "types": "./lib/electron-ipc-bus.d.ts",
   "browser": "./lib/electron-ipc-bus-browser.js",
   "dependencies": {
-    "uuid": "3.0.1"
+    "uuid": "3.0.1",
+    "socket-serializer": "^0.8.0"
   },
   "devDependencies": {
     "@types/node": "^0.0.3",

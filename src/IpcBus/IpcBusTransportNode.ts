@@ -1,10 +1,10 @@
-import { IpcPacketNet as BaseIpc } from './Net/ipcPacketNet';
+import { IpcPacketNet as BaseIpc } from 'socket-serializer';
 
 import * as IpcBusUtils from './IpcBusUtils';
 import * as IpcBusInterfaces from './IpcBusInterfaces';
 
 import { IpcBusTransport, IpcBusCommand, IpcBusData } from './IpcBusTransport';
-import { IpcPacketBuffer } from './Net/ipcPacketBuffer';
+import { IpcPacketBuffer } from 'socket-serializer';
 
 // Implementation for Node process
 /** @internal */
@@ -64,7 +64,7 @@ export class IpcBusTransportNode extends IpcBusTransport {
                     }
                 });
                 this._baseIpc.on('packet', (packet: IpcPacketBuffer) => {
-                    let args = packet.toArray();
+                    let args = packet.parseArray();
                     let ipcBusCommand: IpcBusCommand = args.shift();
                     // console.log(`packet`);
                     // console.log(JSON.stringify(ipcBusCommand, null, 4));
@@ -104,7 +104,8 @@ export class IpcBusTransportNode extends IpcBusTransport {
             else {
                 args = [ipcBusCommand];
             }
-            let packet = IpcPacketBuffer.fromArray(args);
+            let packet = new IpcPacketBuffer();
+            packet.serializeArray(args);
             // let bytesWritten = packet.buffer.length;
             this._busConn.write(packet.buffer);
 
