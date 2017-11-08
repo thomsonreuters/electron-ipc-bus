@@ -21,6 +21,7 @@ export class IpcBusServiceProxyImpl extends EventEmitter implements IpcBusInterf
         private _serviceName: string,
         private _callTimeout: number = 1000) {
         super();
+        super.setMaxListeners(0);
 
         this._wrapper = new CallWrapperEventEmitter();
 
