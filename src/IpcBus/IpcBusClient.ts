@@ -15,6 +15,7 @@ export class IpcBusCommonClient extends EventEmitter
 
     constructor(ipcBusTransport: IpcBusTransport) {
         super();
+        super.setMaxListeners(0);
         this._ipcBusTransport = ipcBusTransport;
         this._ipcBusTransport.eventEmitter = this;
     }
