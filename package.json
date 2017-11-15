@@ -16,7 +16,7 @@
     "process",
     "rpc"
   ],
-  , "author": "Emmanuel Kimmerlin, Michael Vasseur",
+  "author": "Emmanuel Kimmerlin, Michael Vasseur",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/emmkimme/electron-common-ipc/issues"
