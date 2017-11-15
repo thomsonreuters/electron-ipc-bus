@@ -1,4 +1,4 @@
-# electron-ipc-bus
+# electron-common-ipc
 A safe IPC (Inter-Process Communication) bus for applications built on Electron. 
 
 This bus offers a common API for exchanging data between any Electron process : Node, Master and Renderer instances.
@@ -12,13 +12,11 @@ This bus offers a common API for exchanging data between any Electron process : 
 
 # Installation
 ```Batchfile
-npm install electron-ipc-bus
+npm install electron-common-ipc
 ```
 
 Dependencies
-* https://github.com/oleics/node-easy-ipc
-* https://github.com/pkrumins/node-lazy
-* https://github.com/defunctzombie/node-uuid
+* https://github.com/emmkimme/socket-serializer
 * http://electron.atom.io/
 * http://nodejs.org/
 
@@ -26,14 +24,14 @@ Dependencies
 # Technical Overview
 
 ## Objective
-![Electron's processes](https://raw.githubusercontent.com/MichaelVasseur/electron-ipc-bus/Doc_Update/doc/electron_processes.svg)
+![Electron's processes](https://raw.githubusercontent.com/emmkimme/electron-common-ipc/Doc_Update/doc/electron_processes.svg)
 
 
 # Usage
 
 ```js
 // Load modules
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 const electronApp = require('electron').app;
 
 // Configuration
@@ -127,7 +125,7 @@ interface IpcBusBroker {
 ## Initialization of the Broker (in a node process)
 
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 const ipcBusBroker = ipcBusModule.CreateIpcBusBroker([busPath]);
 ```
 
@@ -183,7 +181,7 @@ var queryState = ipcBusBroker.queryState()
 ````
 
 Returns the list of pair <channel, peer> subscriptions. Format may change from one version to another.
-This information can be retrieved from an IpcBusClient through the channel : /electron-ipc-bus/queryState
+This information can be retrieved from an IpcBusClient through the channel : /electron-common-ipc/queryState
 
 ### isServiceAvailable(serviceName): boolean 
 - ***serviceName***: string
@@ -193,7 +191,7 @@ ipcBusBroker.isServiceAvailable('mySettings')
 ````
 
 Test if a service is started.
-This information can be retrieved from an IpcBusClient through the channel : /electron-ipc-bus/serviceAvailable
+This information can be retrieved from an IpcBusClient through the channel : /electron-common-ipc/serviceAvailable
 
 
 # IpcBusBridge
@@ -210,7 +208,7 @@ interface IpcBusBridge {
 ## Initialization of the Bridge (in the master process)
 
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 const ipcBusBridge = ipcBusModule.CreateIpcBusBridge([busPath]);
 ```
 
@@ -293,7 +291,7 @@ interface IpcBusClient extends events.EventEmitter {
 ## Initialization in the Main/Browser Node process
 
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 const ipcBus = ipcBusModule.CreateIpcBusClient([busPath]);
 ````
 
@@ -328,7 +326,7 @@ const ipcBus = ipcBusModule.CreateIpcBusClient();
 ```
 ## Initialization in a Renderer process (either sandboxed or not)
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 const ipcBus = ipcBusModule.CreateIpcBusClient();
 ```
 
@@ -336,7 +334,7 @@ NOTE: If the renderer is running in sandboxed mode, the above code must be run f
 Otherwise, the Electron's ipcRenderer is not accessible and the client cannot work.
 Use the code below to make the client accessible to the the Web page scripts.
 ```js
-window.ipcBus = require('electron-ipc-bus').CreateIpcBusClient();
+window.ipcBus = require('electron-common-ipc').CreateIpcBusClient();
 ```
 
 ## Property
@@ -536,7 +534,7 @@ interface IpcBusServiceCallHandler {
 
 ## Creation (without an outer implementation)
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 ...
 // ipcBusClient is a connected instance of IpcBusClient
 const ipcMyService = ipcBusModule.CreateIpcBusService(ipcBusClient, 'myService');
@@ -544,7 +542,7 @@ const ipcMyService = ipcBusModule.CreateIpcBusService(ipcBusClient, 'myService')
 
 ## Creation (with an outer instance)
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 ...
 const myOuterServiceInstance = {};
 myOuterServiceInstance.test = () => { return 'This is a test'; };
@@ -623,7 +621,7 @@ interface IpcBusServiceEventHandler {
 
 ## Creation
 ```js
-const ipcBusModule = require("electron-ipc-bus");
+const ipcBusModule = require("electron-common-ipc");
 ...
 // ipcBusClient is a connected instance of IpcBusClient
 const ipcMyServiceProxy = ipcBusModule.CreateIpcBusServiceProxy(ipcBusClient, 'myService', 2000); // 2000 ms for call timeout (default is 1000 ms)
@@ -700,7 +698,7 @@ npm run start-sandboxed
 
 # MIT License
 
-Copyright (c) 2017 Michael Vasseur and Emmanuel Kimmerlin
+Copyright (c) 2017 Emmanuel Kimmerlin and Michael Vasseur
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
