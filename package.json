@@ -1,10 +1,10 @@
 {
-  "name": "electron-ipc-bus",
-  "version": "0.33.0",
+  "name": "electron-common-ipc",
+  "version": "1.0.0",
   "description": "A safe IPC bus for applications built on Electron.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MichaelVasseur/electron-ipc-bus.git"
+    "url": "git+https://github.com/emmkimme/electron-common-ipc.git"
   },
   "keywords": [
     "electron",
@@ -16,25 +16,21 @@
     "process",
     "rpc"
   ],
-  "author": "Michael Vasseur",
+  , "author": "Emmanuel Kimmerlin, Michael Vasseur",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MichaelVasseur/electron-ipc-bus/issues"
+    "url": "https://github.com/emmkimme/electron-common-ipc/issues"
   },
-  "homepage": "https://github.com/MichaelVasseur/electron-ipc-bus#readme",
+  "homepage": "https://github.com/emmkimme/electron-common-ipc#readme",
   "maintainers": [
-    {
-      "name": "Michael Vasseur",
-      "email": "michael.vasseur@thomsonreuters.com"
-    },
     {
       "name": "Emmanuel Kimmerlin",
       "email": "emmanuel.kimmerlin@thomsonreuters.com"
     }
   ],
-  "main": "./lib/electron-ipc-bus.js",
-  "types": "./lib/electron-ipc-bus.d.ts",
-  "browser": "./lib/electron-ipc-bus-browser.js",
+  "main": "./lib/electron-common-ipc.js",
+  "types": "./lib/electron-common-ipc.d.ts",
+  "browser": "./lib/electron-common-ipc-browser.js",
   "dependencies": {
     "uuid": "3.0.1",
     "socket-serializer": "^0.9.0"
@@ -55,9 +51,9 @@
     "build-js": "tsc -p ./tsconfig/tsconfig-js.json",
     "build-declaration": "npm run build-declaration-ts && npm run build-declaration-dts-bundle && npm run build-declaration-dts-bundle-browser && npm run clean-declaration-dts",
     "build-declaration-ts": "tsc -p ./tsconfig/tsconfig-declaration.json",
-    "build-declaration-dts-generator": "dts-generator --name electron-ipc-bus --project . --out ./lib/index.d.ts",
-    "build-declaration-dts-bundle": "dts-bundle --outputAsModuleFolder --name electron-ipc-bus --main ./lib/electron-ipc-bus.d.ts",
-    "build-declaration-dts-bundle-browser": "dts-bundle --outputAsModuleFolder --name electron-ipc-bus-browser --main ./lib/electron-ipc-bus-browser.d.ts",
+    "build-declaration-dts-generator": "dts-generator --name electron-common-ipc --project . --out ./lib/index.d.ts",
+    "build-declaration-dts-bundle": "dts-bundle --outputAsModuleFolder --name electron-common-ipc --main ./lib/electron-common-ipc.d.ts",
+    "build-declaration-dts-bundle-browser": "dts-bundle --outputAsModuleFolder --name electron-common-ipc-browser --main ./lib/electron-common-ipc-browser.d.ts",
     "clean-declaration-dts": "del-cli ./lib/IpcBus/*.d.ts",
     "tsc": "tsc",
     "tslint": "tslint",
