@@ -8,7 +8,6 @@ import { IpcBusTransportNode } from './IpcBusTransportNode';
 /** @internal */
 export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInterfaces.IpcBusBridge {
     private _ipcMain: any;
-    private _webContents: any;
 
     private _subscriptions: IpcBusUtils.ChannelConnectionMap<number>;
     private _requestChannels: Map<string, any>;
@@ -19,7 +18,6 @@ export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInter
     constructor(ipcBusProcess: IpcBusInterfaces.IpcBusProcess, ipcOptions: IpcBusUtils.IpcOptions) {
         super(ipcBusProcess, ipcOptions);
         this._ipcMain = require('electron').ipcMain;
-        this._webContents = require('electron').webContents;
 
         this._subscriptions = new IpcBusUtils.ChannelConnectionMap<number>('IPCBus:Bridge');
         this._requestChannels = new Map<string, any>();

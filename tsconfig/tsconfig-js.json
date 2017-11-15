@@ -4,7 +4,7 @@
         "declaration": false
     },
 	"files": [
-		"../src/electron-ipc-bus.ts",
-		"../src/electron-ipc-bus-browser.ts"
+		"../src/electron-common-ipc.ts",
+		"../src/electron-common-ipc-browser.ts"
 	]
 }

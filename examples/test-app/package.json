@@ -8,8 +8,8 @@
     "start-sandboxed": "electron . --enable-sandbox",
     "build": "npm run build-mklink && npm run build-bundle-preload",
     "build-ipc1": "npm install ../..",
-    "build-mklink": "mklink /j node_modules\\electron-ipc-bus ..\\..\\..\\electron-ipc-bus",
-    "build-ipc": "npm uninstall electron-ipc-bus && npm install ../..",
+    "build-mklink": "mklink /j node_modules\\electron-common-ipc ..\\..\\..\\electron-common-ipc",
+    "build-ipc": "npm uninstall electron-common-ipc && npm install ../..",
     "link": "npm run link-electron-ipc",
     "link-electron-ipc": "npm link ../../",
     "build-bundle-preload": "browserify -o BundledBrowserWindowPreload.js -x electron BrowserWindowPreload.js"
@@ -22,7 +22,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "electron": "1.6.7",
-    "electron-ipc-bus": "^0.17.0",
+    "electron-common-ipc": "^0.17.0",
     "typescript": "^2.5.2",
     "uuid": "2.0.3"
   }
