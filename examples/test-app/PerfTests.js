@@ -1,7 +1,7 @@
 const isTypedArray = require('is-typedarray').strict
 
 var PerfTests = function _PerfTests(type, busPath) {
-    const _ipcBusModule = require('electron-ipc-bus');
+    const _ipcBusModule = require('electron-common-ipc');
     var _ipcBus = _ipcBusModule.CreateIpcBusClient(busPath);
     var _type = type;
 

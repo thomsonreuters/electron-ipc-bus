@@ -5,7 +5,7 @@
 
 console.log('IPC Broker instance : Starting')
 
-const ipcBusModule = require('electron-ipc-bus');
+const ipcBusModule = require('electron-common-ipc');
 const ipcBroker = ipcBusModule.CreateIpcBusBroker();
 ipcBusModule.ActivateIpcBusTrace(true);
 

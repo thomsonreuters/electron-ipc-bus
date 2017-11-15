@@ -3,9 +3,9 @@
 
 'use strict';
 
-window.ipcBus = require('electron-ipc-bus').CreateIpcBusClient();
-window.ipcBus_QUERYSTATE_CHANNEL = require('electron-ipc-bus').IPCBUS_CHANNEL_QUERY_STATE;
-require('electron-ipc-bus').ActivateIpcBusTrace(true);
+window.ipcBus = require('electron-common-ipc').CreateIpcBusClient();
+window.ipcBus_QUERYSTATE_CHANNEL = require('electron-common-ipc').IPCBUS_CHANNEL_QUERY_STATE;
+require('electron-common-ipc').ActivateIpcBusTrace(true);
 
 window.ipcRenderer = require('electron').ipcRenderer;
 

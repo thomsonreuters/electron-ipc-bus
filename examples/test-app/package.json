@@ -14,15 +14,14 @@
     "link-electron-ipc": "npm link ../../",
     "build-bundle-preload": "browserify -o BundledBrowserWindowPreload.js -x electron BrowserWindowPreload.js"
   },
-  "author": "Thomson Reuters",
-  "homepage": "http://www.thomsonreuters.com",
+  "author": "Emmanuel Kimmerlin",
   "devDependencies": {
     "browserify": "13.1.1"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "electron": "1.6.7",
-    "electron-common-ipc": "^0.17.0",
+    "electron-common-ipc": "^1.0.0",
     "typescript": "^2.5.2",
     "uuid": "2.0.3"
   }

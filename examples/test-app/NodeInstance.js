@@ -10,7 +10,7 @@ const util = require('util');
 const path = require('path');
 const child_process = require('child_process');
 
-const ipcBusModule = require('electron-ipc-bus');
+const ipcBusModule = require('electron-common-ipc');
 const ipcBus = ipcBusModule.CreateIpcBusClient();
 ipcBusModule.ActivateIpcBusTrace(true);
 
