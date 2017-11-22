@@ -1,6 +1,6 @@
 
 // import * as IpcBusInterfaces from './IpcBusInterfaces';
-import { IpcBusClient } from './IpcBusInterfaces';
+import { IpcBusClient, IpcBusProcessType } from './IpcBusInterfaces';
 // import { IpcBusRequestResponse } from './IpcBusInterfaces';
 // export * from './IpcBusInterfaces';
 import * as IpcBusUtils from './IpcBusUtils';
@@ -30,7 +30,7 @@ export function _CreateIpcBusBroker(busPath?: string): IpcBusBroker {
         case 'browser':
         case 'node':
             if (ipcOptions.isValid()) {
-                ipcBusBroker = new IpcBusBrokerImpl({ type: processType, pid: process.pid, rid: -1 }, ipcOptions);
+                ipcBusBroker = new IpcBusBrokerImpl(processType as IpcBusProcessType, ipcOptions);
             }
             break;
         // not supported process
@@ -51,7 +51,7 @@ export function _CreateIpcBusBridge(busPath?: string): IpcBusBridge {
     switch (processType) {
         case 'browser':
             if (ipcOptions.isValid()) {
-                ipcBusBridge = new IpcBusBridgeImpl({ type: processType, pid: process.pid, rid: -1 }, ipcOptions);
+                ipcBusBridge = new IpcBusBridgeImpl(processType, ipcOptions);
             }
             break;
         // not supported process
@@ -70,12 +70,12 @@ function CreateIpcBusTransport(ipcOptions: IpcBusUtils.IpcOptions): IpcBusTransp
     let ipcBusTransport: IpcBusTransport = null;
     switch (processType) {
         case 'renderer':
-            ipcBusTransport = new IpcBusTransportRenderer({ type: processType, pid: -1, rid: -1 }, ipcOptions);
+            ipcBusTransport = new IpcBusTransportRenderer(processType, ipcOptions);
             break;
         case 'browser':
         case 'node':
             if (ipcOptions.isValid()) {
-                ipcBusTransport = new IpcBusTransportNode({ type: processType, pid: process.pid, rid: -1 }, ipcOptions);
+                ipcBusTransport = new IpcBusTransportNode(processType, ipcOptions);
             }
             break;
     }

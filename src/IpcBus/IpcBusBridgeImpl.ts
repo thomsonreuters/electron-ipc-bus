@@ -15,8 +15,8 @@ export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInter
 
 //    _lambdaCleanUpHandler: Function;
 
-    constructor(ipcBusProcess: IpcBusInterfaces.IpcBusProcess, ipcOptions: IpcBusUtils.IpcOptions) {
-        super(ipcBusProcess, ipcOptions);
+    constructor(processType: IpcBusInterfaces.IpcBusProcessType, ipcOptions: IpcBusUtils.IpcOptions) {
+        super(processType, ipcOptions);
         this._ipcMain = require('electron').ipcMain;
 
         this._subscriptions = new IpcBusUtils.ChannelConnectionMap<number>('IPCBus:Bridge');
@@ -128,13 +128,14 @@ export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInter
             case IpcBusUtils.IPC_BUS_COMMAND_CONNECT : {
                 this._onConnect(event, ipcBusPeer.id);
                 let peerName = `${ipcBusPeer.process.type}-${webContents.id}`;
+                ipcBusPeer.process.wcid = webContents.id;
                 // Hidden function, may disappear
                 try {
                     ipcBusPeer.process.rid = webContents.getProcessId();
                     peerName += `-r${ipcBusPeer.process.rid}`;
                 }
                 catch (err) {
-                    ipcBusPeer.process.rid = webContents.id;
+                    ipcBusPeer.process.rid = -1;
                 }
                 // >= Electron 1.7.1
                 try {

@@ -1,3 +1,7 @@
+/// <reference types='node' />
+
+import * as assert from 'assert';
+
 import { IpcPacketNet as BaseIpc } from 'socket-serializer';
 
 import * as IpcBusUtils from './IpcBusUtils';
@@ -13,8 +17,9 @@ export class IpcBusTransportNode extends IpcBusTransport {
     protected _busConn: any;
     private _promiseConnected: Promise<string>;
 
-    constructor(ipcBusProcess: IpcBusInterfaces.IpcBusProcess, ipcOptions: IpcBusUtils.IpcOptions) {
-        super(ipcBusProcess, ipcOptions);
+    constructor(processType: IpcBusInterfaces.IpcBusProcessType, ipcOptions: IpcBusUtils.IpcOptions) {
+        super({ type: processType, pid: process.pid }, ipcOptions);
+        assert((processType === 'browser') || (processType === 'node'), `IpcBusTransportNode: processType must not be a process ${processType}`);
     }
 
     protected _onClose() {

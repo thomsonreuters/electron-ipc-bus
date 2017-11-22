@@ -26,14 +26,14 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
     private _queryStateLamdba: IpcBusInterfaces.IpcBusListener = (ipcBusEvent: IpcBusInterfaces.IpcBusEvent, replyChannel: string) => this._onQueryState(ipcBusEvent, replyChannel);
     private _serviceAvailableLambda: IpcBusInterfaces.IpcBusListener = (ipcBusEvent: IpcBusInterfaces.IpcBusEvent, serviceName: string) => this._onServiceAvailable(ipcBusEvent, serviceName);
 
-    constructor(ipcBusProcess: IpcBusInterfaces.IpcBusProcess, ipcOptions: IpcBusUtils.IpcOptions) {
+    constructor(processType: IpcBusInterfaces.IpcBusProcessType, ipcOptions: IpcBusUtils.IpcOptions) {
         this._ipcOptions = ipcOptions;
 
         this._subscriptions = new IpcBusUtils.ChannelConnectionMap<string>('IPCBus:Broker');
         this._requestChannels = new Map<string, any>();
         this._ipcBusPeers = new Map<string, IpcBusInterfaces.IpcBusPeer>();
 
-        let ipcBusTransport: IpcBusTransport = new IpcBusTransportNode(ipcBusProcess, ipcOptions);
+        let ipcBusTransport: IpcBusTransport = new IpcBusTransportNode(processType, ipcOptions);
         this._ipcBusBrokerClient = new IpcBusCommonClient(ipcBusTransport);
     }
 

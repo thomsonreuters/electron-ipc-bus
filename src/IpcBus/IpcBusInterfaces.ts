@@ -22,10 +22,13 @@ export interface IpcBusRequestResponse {
     err?: string;
 }
 
+export type IpcBusProcessType = 'browser' | 'renderer' | 'node';
+
 export interface IpcBusProcess {
-    type: 'browser' | 'renderer' | 'node';
+    type: IpcBusProcessType;
     pid: number;
-    rid: number;
+    rid?: number;
+    wcid?: number;
 }
 
 export interface IpcBusPeer {

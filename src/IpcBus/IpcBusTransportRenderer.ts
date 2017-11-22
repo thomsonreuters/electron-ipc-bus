@@ -1,5 +1,7 @@
 /// <reference types='node' />
 
+import * as assert from 'assert';
+
 import * as IpcBusUtils from './IpcBusUtils';
 import * as IpcBusInterfaces from './IpcBusInterfaces';
 
@@ -14,8 +16,9 @@ export class IpcBusTransportRenderer extends IpcBusTransport {
 
     private _ipcRendererReady: Promise<void>;
 
-    constructor(ipcBusProcess: IpcBusInterfaces.IpcBusProcess, ipcOptions: IpcBusUtils.IpcOptions) {
-        super(ipcBusProcess, ipcOptions);
+    constructor(processType: IpcBusInterfaces.IpcBusProcessType, ipcOptions: IpcBusUtils.IpcOptions) {
+        assert(processType === 'renderer', `IpcBusTransportRenderer: processType must not be a process ${processType}`);
+        super({ type: processType, pid: -1 }, ipcOptions);
 
 // ipcRenderer is not ready until the DOM Content is loaded (https://github.com/electron/electron/issues/7455)
         this._ipcRendererReady = new Promise<void>((resolve, reject) => {
