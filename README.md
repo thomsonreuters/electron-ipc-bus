@@ -342,21 +342,36 @@ window.ipcBus = require('electron-common-ipc').CreateIpcBusClient();
 ### peer
 For debugging purpose, each ***IpcBusClient*** is identified by a peer.
 ```js
+type IpcBusProcessType = 'browser' | 'renderer' | 'node';
+
 interface IpcBusProcess {
-    type: string;
+    type: IpcBusProcessType;
     pid: number;
+    rid?: number;
+    wcid?: number;
 }
 
 interface IpcBusPeer {
+    id: number;
     name: string;
     process: IpcBusProcess;
 }
 ```
-it contains the name of the peer, this name can be changed during the connection.
-it contains the process context of the peer : type and pid.
-- type: Master, pid : Process Id
-- type: Node, pid: Process Id
-- type: Renderer, pid: WebContents Id
+IpcBusPeer contains :
+- an uniq read-only id
+- the name of the peer, this name can be changed during the connection (IpcBusClient.connect)
+- the process context of the peer.
+
+IpcBusProcess contains :
+ - type : type of the process : 'browser' | 'renderer' | 'node'
+ - pid : id of the process which hosts the the peer
+ - rid : client id of the renderer process where the peer is hosted (equivalent to the value of --renderer-client-id option in the commandline of the renderer process), only valid for a 'renderer' process
+ - wcid : webContents id of the peer, only valid for a 'renderer' process
+
+For a 'renderer' process the pid depends on the version of Electron.
+
+Electron < 1.7.1 : pid = wcid
+
 
 ## Connectivity Methods
 
