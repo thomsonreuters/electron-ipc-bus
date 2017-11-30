@@ -60,6 +60,8 @@ export class IpcBusTransportNode extends IpcBusTransport {
                 this._baseIpc.on('connect', (conn: any) => {
                     this._busConn = conn;
                     if (this._baseIpc) {
+                        this._baseIpc.removeAllListeners('error');
+                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Node] connected`);
                         clearTimeout(timer);
                         this.ipcPushCommand(IpcBusUtils.IPC_BUS_COMMAND_CONNECT, '', {});
                         resolve('connected');
@@ -79,12 +81,21 @@ export class IpcBusTransportNode extends IpcBusTransport {
                     else {
                         // console.log(JSON.stringify(ipcBusCommand, null, 4));
                         // console.log(args);
-                        throw "IpcBusTransportNode: Not valid packet !";
+                        throw `[IPCBus:Node] Not valid packet !`;
                     }
                 });
+                this._baseIpc.once('error', (err: any) => {
+                    let msg = `[IPCBus:Node] error = ${err}`;
+                    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(msg);
+                    clearTimeout(timer);
+                    this._reset();
+                    reject(msg);
+                });
                 this._baseIpc.on('close', (conn: any) => {
+                    let msg = `[IPCBus:Node] server close`;
+                    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(msg);
                     this._onClose();
-                    reject('server close');
+                    reject(msg);
                 });
                 this._baseIpc.connect(this.ipcOptions.port, this.ipcOptions.host);
             });

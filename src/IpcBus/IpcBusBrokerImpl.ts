@@ -72,6 +72,7 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
                 this._baseIpc.once('listening', (server: any) => {
                     this._ipcServer = server;
                     if (this._baseIpc) {
+                        this._baseIpc.removeAllListeners('error');
                         IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Broker] Listening for incoming connections on ${this._ipcOptions}`);
                         clearTimeout(timer);
                         this._baseIpc.on('connection', (socket: any, server: any) => this._onConnection(socket, server));
@@ -93,7 +94,13 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
                         this._reset();
                     }
                 });
-
+                this._baseIpc.once('error', (err: any) => {
+                    let msg = `[IPCBus:Broker] error = ${err} on ${this._ipcOptions.port}, ${this._ipcOptions.host}`;
+                    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(msg);
+                    clearTimeout(timer);
+                    this._reset();
+                    reject(msg);
+                });
                 this._baseIpc.listen(this._ipcOptions.port, this._ipcOptions.host);
             });
         }

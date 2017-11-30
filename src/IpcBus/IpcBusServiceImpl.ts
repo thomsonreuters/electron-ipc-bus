@@ -56,7 +56,8 @@ export class IpcBusServiceImpl implements IpcBusInterfaces.IpcBusService {
                     }
                 }
             }
-        } else {
+        }
+        else {
             IpcBusUtils.Logger.service && IpcBusUtils.Logger.info(`[IpcService] Service '${this._serviceName}' does NOT have an implementation`);
         }
     }
@@ -154,7 +155,8 @@ export class IpcBusServiceImpl implements IpcBusInterfaces.IpcBusService {
             if (result && result['then']) {
                 // result is a valid promise
                 result.then(request.resolve, request.reject);
-            } else {
+            }
+            else {
                 // result is "just" a value
                 request.resolve(result);
             }
