@@ -25,7 +25,7 @@ export function _CreateIpcBusBroker(busPath?: string): IpcBusBroker {
 
     let ipcOptions = IpcBusUtils.ExtractIpcOptions(busPath);
     let processType = ElectronUtils.GuessElectronProcessType();
-    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`_CreateIpcBusBroker process type = ${processType}, ipc options = ${ipcOptions}`);
+    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`_CreateIpcBusBroker process type = ${processType} on ${JSON.stringify(ipcOptions)}`);
     switch (processType) {
         case 'browser':
         case 'node':
@@ -47,7 +47,7 @@ export function _CreateIpcBusBridge(busPath?: string): IpcBusBridge {
 
     let ipcOptions = IpcBusUtils.ExtractIpcOptions(busPath);
     let processType = ElectronUtils.GuessElectronProcessType();
-    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`_CreateIpcBusBridge process type = ${processType}, ipc options = ${ipcOptions}`);
+    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`_CreateIpcBusBridge process type = ${processType} on ${JSON.stringify(ipcOptions)}`);
     switch (processType) {
         case 'browser':
             if (ipcOptions.isValid()) {
@@ -65,7 +65,7 @@ export function _CreateIpcBusBridge(busPath?: string): IpcBusBridge {
 
 function CreateIpcBusTransport(ipcOptions: IpcBusUtils.IpcOptions): IpcBusTransport {
     let processType = ElectronUtils.GuessElectronProcessType();
-    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`CreateIpcBusForProcess process type = ${processType}, ipc options = ${ipcOptions}`);
+    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`CreateIpcBusForProcess process type = ${processType} on ${JSON.stringify(ipcOptions)}`);
 
     let ipcBusTransport: IpcBusTransport = null;
     switch (processType) {
