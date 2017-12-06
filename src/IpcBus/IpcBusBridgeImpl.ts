@@ -36,7 +36,7 @@ export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInter
         switch (ipcBusCommand.name) {
             case IpcBusUtils.IPC_BUS_COMMAND_SENDMESSAGE:
             case IpcBusUtils.IPC_BUS_COMMAND_REQUESTMESSAGE: {
-                IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Bridge] Received ${name} on channel '${ipcBusCommand.channel}' from peer #${ipcBusCommand.peer.name}`);
+                IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Bridge] Received ${ipcBusCommand.name} on channel '${ipcBusCommand.channel}' from peer #${ipcBusCommand.peer.name}`);
                 this._subscriptions.forEachChannel(ipcBusCommand.channel, (connData, channel) => {
                     IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Bridge] Forward send message received on '${channel}' to peer #Renderer_${connData.connKey}`);
                     connData.conn.send(IpcBusUtils.IPC_BUS_RENDERER_EVENT, ipcBusCommand, args);
@@ -44,7 +44,7 @@ export class IpcBusBridgeImpl extends IpcBusTransportNode implements IpcBusInter
                 break;
             }
             case IpcBusUtils.IPC_BUS_COMMAND_REQUESTRESPONSE: {
-                IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Bridge] Received ${name} on channel '${ipcBusCommand.data.replyChannel}' from peer #${ipcBusCommand.peer.name}`);
+                IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Bridge] Received ${ipcBusCommand.name} on channel '${ipcBusCommand.data.replyChannel}' from peer #${ipcBusCommand.peer.name}`);
                 let webContents = this._requestChannels.get(ipcBusCommand.data.replyChannel);
                 if (webContents) {
                     this._requestChannels.delete(ipcBusCommand.data.replyChannel);
