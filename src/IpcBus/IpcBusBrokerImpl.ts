@@ -65,7 +65,7 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
                 if (timeoutDelay >= 0) {
                     timer = setTimeout(() => {
                         this._reset();
-                        let msg = `[IPCBus:Broker] error = timeout (${timeoutDelay} ms) on ${this._ipcOptions.port}, ${this._ipcOptions.host}`;
+                        let msg = `[IPCBus:Broker] error = timeout (${timeoutDelay} ms) on ${JSON.stringify(this._ipcOptions)}`;
                         IpcBusUtils.Logger.enable && IpcBusUtils.Logger.error(msg);
                         reject(msg);
                     }, timeoutDelay);
@@ -75,7 +75,7 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
                     this._ipcServer = server;
                     if (this._baseIpc) {
                         this._baseIpc.removeAllListeners('error');
-                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Broker] Listening for incoming connections on ${this._ipcOptions.port}, ${this._ipcOptions.host}`);
+                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Broker] Listening for incoming connections on ${JSON.stringify(this._ipcOptions)}`);
                         clearTimeout(timer);
                         this._baseIpc.on('connection', (socket: any, server: any) => this._onConnection(socket, server));
                         this._baseIpc.on('close', (err: any, socket: any, server: any) => this._onClose(err, socket, server));
@@ -99,7 +99,7 @@ export class IpcBusBrokerImpl implements IpcBusInterfaces.IpcBusBroker {
                     }
                 });
                 this._baseIpc.once('error', (err: any) => {
-                    let msg = `[IPCBus:Broker] error = ${err} on ${this._ipcOptions.port}, ${this._ipcOptions.host}`;
+                    let msg = `[IPCBus:Broker] error = ${err} on ${JSON.stringify(this._ipcOptions)}`;
                     IpcBusUtils.Logger.enable && IpcBusUtils.Logger.error(msg);
                     clearTimeout(timer);
                     this._reset();

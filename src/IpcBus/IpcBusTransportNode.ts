@@ -53,7 +53,9 @@ export class IpcBusTransportNode extends IpcBusTransport {
                 if (timeoutDelay >= 0) {
                     timer = setTimeout(() => {
                         this._reset();
-                        reject('timeout');
+                        let msg = `[IPCBus:Node] error = timeout (${timeoutDelay} ms) on ${JSON.stringify(this.ipcOptions)}`;
+                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.error(msg);
+                        reject(msg);
                     }, timeoutDelay);
                 }
                 this._baseIpc = new BaseIpc();
@@ -61,7 +63,7 @@ export class IpcBusTransportNode extends IpcBusTransport {
                     this._busConn = conn;
                     if (this._baseIpc) {
                         this._baseIpc.removeAllListeners('error');
-                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Node] connected`);
+                        IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(`[IPCBus:Node] connected on ${JSON.stringify(this.ipcOptions)}`);
                         clearTimeout(timer);
                         this.ipcPushCommand(IpcBusUtils.IPC_BUS_COMMAND_CONNECT, '', {});
                         resolve('connected');
@@ -85,8 +87,8 @@ export class IpcBusTransportNode extends IpcBusTransport {
                     }
                 });
                 this._baseIpc.once('error', (err: any) => {
-                    let msg = `[IPCBus:Node] error = ${err}`;
-                    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.info(msg);
+                    let msg = `[IPCBus:Node] error = ${err} on ${JSON.stringify(this.ipcOptions)}`;
+                    IpcBusUtils.Logger.enable && IpcBusUtils.Logger.error(msg);
                     clearTimeout(timer);
                     this._reset();
                     reject(msg);
